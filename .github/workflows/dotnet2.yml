@@ -21,8 +21,10 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore Foo.Bar.SampleApp.Net8.csproj
     - name: Build
-      run: dotnet build --no-restore
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet build Foo.Bar.SampleApp.Net8.csproj -c Release -f net8.0-android --no-restore
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        path: ./**/*.apk
